@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ProductCheck";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ProductCheck</h2>
+
+
+<center>
+    <label>Product Check</label>
+    <input type="text" id="productCode" placeholder="Please enter product code" />
+    <button onclick="checkProduct()">Click</button>
+    <br />
+    <br />
+</center>
+
+<script>
+    var productCode;
+    var partialField = document.getElementById("innerPartial");
+    function checkProduct() {
+        productCode = document.getElementById("productCode").value;
+        console.log(productCode);
+        window.location.href = `${window.location.protocol}//${window.location.host}/Home/ProductResult?number=${productCode}`;
+    }
+</script>
+

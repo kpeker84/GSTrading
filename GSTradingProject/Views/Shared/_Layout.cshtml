@@ -1,0 +1,240 @@
+﻿@{
+
+    Cart c = Session["scart"] as Cart;
+
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/jpg" href="~/img/GS_Group_Logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/socicon.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/iconsmind.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700" rel="stylesheet">
+    <link href="~/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="~/assets/CustomCss/highlight-sheet.css" rel="stylesheet" />
+    <link href="~/css/theme-charcoal.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <style>
+
+        .sticky {
+            position: sticky;
+            margin: 0;
+            top: 0;
+            width: 100%;
+            z-index: 5;
+            background-color: white;
+        }
+    </style>
+    @*<script>
+            $(document).ready(function () {
+                // Add smooth scrolling to all links
+                $("a").on('click', function (event) {
+                    // Make sure this.hash has a value before overriding default behavior
+                    if (this.hash !== "") {
+                        // Prevent default anchor click behavior
+                        event.preventDefault();
+                        // Store hash
+                        var hash = this.hash;
+                        // Using jQuery's animate() method to add smooth page scroll
+                        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 800, function () {
+                            // Add hash (#) to URL when done scrolling (default click behavior)
+                            window.location.hash = hash;
+                        });
+                    } // End if
+                });
+            });
+        </script>*@
+</head>
+<body data-smooth-scroll-offset="77">
+    <div class="nav-container sticky">
+        <div class="via-1610740892244" via="via-1610740892244" vio="GROUP">
+            <div class="bar bar--sm visible-xs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 col-md-2">
+                            <a href="@Url.RouteUrl("Index")"> <img class="logo logo-dark" alt="logo" src="~/img/LogoApocan.png"> <img class="logo logo-light" alt="logo" src="~/img/LogoApocan.png"> </a>
+                        </div>
+                        <div class="col-9 col-md-10 text-right">
+                            <a href="#" class="hamburger-toggle" data-toggle-class="#menu1;hidden-xs hidden-sm"> <i class="icon icon--sm stack-interface stack-menu"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav id="menu1" class="bar bar-1 hidden-xs bar--transparent bar--absolute" data-scroll-class="80vh:pos-fixed">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-2 hidden-xs">
+                            <div class="bar__module">
+                                <a href="@Url.RouteUrl("Index")">
+                                    <img style="min-width:150px;min-height:50px !important" class="logo logo-dark" alt="logo" src="~/img/LogoApocan.png">
+                                    <img style="min-width:150px;min-height:50px !important" class="logo logo-light" alt="logo" src="~/img/LogoApocan.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-11 text-right text-left-xs text-left-sm col-md-12">
+                            <div class="bar__module">
+                                <ul class="menu-horizontal text-left">
+                                    @*<li> <a href="    ">Unternehmen</a> </li>*@
+                                    <li> <a href="@Url.RouteUrl("Unsereprodukte")">Produkte</a> </li>
+                                    @*<li> <a href="@Url.RouteUrl("Service")">Service</a> </li>*@
+                                    <li> <a href="@Url.RouteUrl("Presse")">Presse</a> </li>
+                                    @if (Session["logged"] != null)
+                                    {
+                                        <li> <a href="@Url.RouteUrl("Faq")">FAQ</a> </li>
+                                        <li> <a href="@Url.RouteUrl("ProfessionalMain")">Fachbereich</a> </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="bar__module">
+                                @if (Session["logged"] == null)
+                                {
+                                    <a class="btn btn--sm type--uppercase" href="@Url.RouteUrl("Login")">
+                                        <span class="btn__text">
+                                            DOCCHECK
+                                        </span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn--sm type--uppercase" href="@Url.Action("Logout","Home")">
+                                        <span class="btn__text">
+                                            LOGOUT
+                                        </span>
+                                    </a>
+
+                                }
+
+                                <a class="btn btn--sm btn--primary type--uppercase" href="@Url.Action("Kontakt","Home")">
+                                    <span class="btn__text">
+                                        KONTAKT
+                                    </span>
+                                </a>
+                                @*@if (Session["logged"] != null)
+                                    {
+                                        <a class="btn btn-warning btn--sm" href="/Shopping/CartPage">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" style="margin-right:5px">
+                                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                            </svg>
+                                            @if (c != null)
+                                            {
+                                                <span class="badge badge-primary">@c.Sepetim.Count</span>
+                                            }
+
+                                        </a>
+
+                                    }*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="main-container">
+        @RenderBody()
+
+        <footer class="space--xxs footer-2 bg--primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 col-xs-6">
+                        <h6 class="type--uppercase">LINKS</h6>
+                        <ul class="list--hover">
+                            <li><a href="@Url.RouteUrl("Impressum")">Impressum</a></li>
+                            <li><a>AGBs</a></li>
+                            <li><a href="@Url.RouteUrl("Datenschutz")">Datenschutz</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xs-6">
+                        <h6 class="type--uppercase">KONTAKT</h6>
+                        <ul class="list--hover">
+                            <li><a>Mo. – Fr. 09:00 – 18:00&nbsp;<br></a></li>
+                            <li><a>030 / 548 446 15&nbsp;&nbsp;<br></a></li>
+                            <li><a>info@apocan.de&nbsp; &nbsp;<br></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xs-6">
+                        <h6 class="type--uppercase">ADRESSE</h6>
+                        <ul class="list--hover">
+                            <li><a>APOCAN GmbH&nbsp;<br></a></li>
+                            <li><a>Heinrich-Strunk-Str. 77&nbsp;<br></a></li>
+                            <li><a>45143 Essen&nbsp;&nbsp;<br></a></li>
+                            @*<li>
+                                    <a>
+                                        www.greenstein.co
+                                        <br>&nbsp;<br>
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </div>
+                    @*<div class="col-sm-6 col-md-3 col-xs-6">
+                            <h6 class="type--uppercase">Mitgliedschaften</h6>
+                            <ul class="list--hover">
+                                    <li><a href="#">Melbourne</a></li>
+                                    <li><a href="#">London</a></li>
+                                </ul>
+                            <div class="col-sm-6"> <img style="min-width:200px;min-height:50px" alt="Image" class="logo" src="~/img/BPI.png"> <img style="min-width:200px;min-height:100px" alt="Image" class="logo" src="~/img/VCA_White-new.png"> </div>
+                        </div>*@
+                </div>
+                <div class="row">
+                    @*<div class="col-sm-12"> <img style="min-width:100px;min-height:50px" alt="Image" class="logo" src="~/img/Logo-in-side_5_White.png"></div>*@
+                    <div class="col-sm-6"> <span class="type--fine-print">© <span class="update-year">2021</span> APOCAN</span></div>
+                    @*<div class="col-sm-6"> <span class="type--fine-print"> </span></div>
+                        <div class="col-sm-6"> <span class="type--fine-print"> Teil der Greenstein Group <br /> <a href="https://www.greenstein.co">www.greenstein.co</a></span> </div>*@
+                </div>
+            </div>
+        </footer>
+        @*<footer class="space--sm footer-1 text-center-xs bg--primary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-inline list--hover">
+                                <li> <a href="@Url.RouteUrl("Karriere")"><span>Karriere</span></a> </li>
+                                <li> <a href="@Url.RouteUrl("Faq")"><span>FAQ</span></a> </li>
+                                <li> <a href="@Url.RouteUrl("Impressum")"><span>Impressum</span></a> </li>
+                                <li> <a href="#"><span>AGBs</span></a> </li>
+                                <li> <a href="@Url.RouteUrl("Datenschutz")"><span>Datenschutz</span></a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 text-center-xs">
+                            <ul class="social-list list-inline list--hover">
+                                <li><a href="#"><i class="socicon socicon-google icon icon--xs"></i></a></li>
+                                <li><a href="#"><i class="socicon socicon-twitter icon icon--xs"></i></a></li>
+                                <li><a href="#"><i class="socicon socicon-facebook icon icon--xs"></i></a></li>
+                                <li><a href="#"><i class="socicon socicon-instagram icon icon--xs"></i></a></li>
+                            </ul>
+                            <a href="@Url.RouteUrl("Kontakt")" class="btn type--uppercase">
+                <span class="btn__text">
+                    Kontakt
+                </span>
+            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12"> <img style="min-width:100px;min-height:50px" alt="Image" class="logo" src="~/img/LGO-GS-white.png"> <span class="type--fine-print">© <span class="update-year">2021</span> Greenstein Germany GmbH</span> <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a> </div>
+                        <div class="col-sm-6"> <img style="min-width:100px;min-height:50px" alt="Image" class="logo" src="~/img/BPI.png"> <img style="min-width:100px;min-height:50px" alt="Image" class="logo" src="~/img/VCA_White-new.png"> </div>
+                    </div>
+                </div>
+            </footer>*@
+    </div>
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/parallax.js"></script>
+    <script src="~/js/smooth-scroll.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/flickity.min.js"></script>
+
+
+</body>
+
+</html>

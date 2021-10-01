@@ -1,0 +1,114 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "Greenstein Germany | Check Out";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Cart c = ViewBag.cart as Cart;
+
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    @*<meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/theme-greensea.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700" rel="stylesheet">*@
+
+</head>
+<body data-smooth-scroll-offset="77">
+    <div class="text-center">
+        <h5>@ViewBag.error</h5>
+    </div>
+
+    <div class="nav-container"> </div>
+    <div class="main-container">
+        <section class="bg--primary text-center space--sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1><b>Check </b>Out</h1>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="text-center bg--secondary space--xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8">
+                        <h2>Cart Summary</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg--secondary">
+            <div class="container">
+                <div class="row">
+                    <table class="table table-hover">
+                        <tr>
+                            <th style="max-width:60px !important">Product Name</th>
+                            <th>Amount</th>
+                            <th>Price</th>
+                        </tr>
+                        @if (c != null)
+                        {
+
+                            foreach (var item in c.Sepetim)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Amount</td>
+                                    <td>@item.Price</td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                </div>
+                <div class="row" style="justify-content:center">
+                    @if (c != null)
+                    {
+
+                        <h3><b>SubTotal: @c.TotalPrice</b></h3>
+                    }
+                </div>
+                <section class="text-center bg--secondary space--xs">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-lg-8">
+                                <h2>Contact Information</h2>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="boxed boxed--border">
+                            <form class="text-left row mx-0" action="/Shopping/CheckOut" method="post">
+                                <div class="col-md-6"> <span>First Name:</span> <input type="text" name="Name" class="validate-required"> </div>
+                                <div class="col-md-6"> <span>Last Name:</span> <input type="text" name="Surname" class="validate-required"> </div>
+                                <div class="col-md-12"> <span>Company Name:</span> <textarea rows="1" name="Company" class="validate-required"></textarea> </div>
+                                <div class="col-md-6"> <span>Email Address:</span> <input type="email" name="Mail" class="validate-required validate-email"> </div>
+                                <div class="col-md-6"> <span>Phone:</span> <input type="tel" name="PhoneNumber" class="validate-required"> </div>
+                                <div class="col-md-12"> <span>Address:</span> <textarea rows="1" name="Address" class="validate-required"></textarea> </div>
+                                <div class="col-md-6"> <span>Postal Code:</span> <input type="text" name="name" class="validate-required"> </div>
+                                <div class="col-md-6"> <span>City:</span> <input type="text" name="company" class="validate-required"> </div>
+
+
+                                <div class="col-md-12 boxed"> <button type="submit" class="btn btn--primary type--uppercase">Place Order</button> </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>
+

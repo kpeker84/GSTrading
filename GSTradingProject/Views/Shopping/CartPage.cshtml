@@ -1,0 +1,257 @@
+﻿@model Cart
+@{
+    ViewBag.Title = "Greenstein Germany | Kontakt";
+    bool beutel = Convert.ToBoolean(ViewBag.beutel);
+    bool onlyBeutel = Convert.ToBoolean(ViewBag.onlyBeutel);
+    int totalAmount = Convert.ToInt32(ViewBag.totalAmount);
+    int totalWeight = Convert.ToInt32(ViewBag.totalWeight);
+}
+
+
+
+<style>
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+</style>
+
+
+<section class="text-center bg--primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1><b>Shopping</b> Cart</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="text-center space--xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8">
+                <h2>Cart Details</h2>
+                <p class="lead"> You can make edits in you shopping cart by using quantity details or you can remove products with using remove button.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="col-12 row" style="justify-content:center;margin:0">
+
+    <table class="table table-hover" style="max-width:500px">
+        <thead>
+            <tr>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Stk. Price
+                </th>
+                <th>
+                    Stk. Weight
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        @if (Model != null)
+        {
+            foreach (var item in Model.Sepetim)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><input type="number" id="@item.ID" value="@item.Amount" onchange="changeAmount(@item.ID)" style="max-width:80px;max-height:30px" onkeydown="return false" min="1" /></td>
+                    <td>@item.Price</td>
+                    <td>@item.StkWeight g</td>
+                    <td style="vertical-align:middle">
+                        <button class="btn btn-danger" style="min-width:50px;max-height:35px" onclick="deleteItem(@item.ID)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-x" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z" />
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+<div class="col-12 row" style="min-height:200px;justify-content:center;margin:0">
+
+    <div style="align-self:center;text-align:center">
+        @if ((Model != null && totalAmount >= 4) || (beutel && totalAmount > 1) || (onlyBeutel))
+        {
+            <h3 id="subtotal"><b>Subtotal: @Model.TotalPrice EUR </b></h3><br>
+            <a id="checkOut" href="/Shopping/CheckOut" class="btn btn-success col-12" style="width:220px !important">CHECKOUT</a><br>
+            <div id="valDiv">
+
+            </div>
+        }
+        else if (Model != null && totalAmount < 4)
+        {
+            <h3 id="subtotal"><b>Subtotal: @Model.TotalPrice EUR</b></h3><br>
+            <a id="checkOut" href="/Shopping/CheckOut" class="btn btn-success col-12 disabled" style="width:220px !important">CHECKOUT</a><br>
+            <div id="valDiv">
+                <label id="validationLabel" style="color:red">Please add @(((Model!=null) && (totalAmount != 0)) ? (4-totalAmount) : 4) more products for complete your order.</label>
+            </div>
+
+        }
+        else
+        {
+            <h3 id="subtotal"><b>Subtotal:0,00 EUR</b></h3><br>
+            <a id="checkOut" href="/Shopping/CheckOut" class="btn btn-success col-12 disabled" style="width:220px !important">CHECKOUT</a><br>
+            <div id="valDiv">
+
+            </div>
+        }
+
+
+
+    </div>
+</div>
+<section class="text-center cta cta-4 space--xxs border--bottom bg--secondary">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"> <span class="label label--inline">for more</span> <span>Click to &nbsp;<a href="@Url.RouteUrl("Professionals")">Continue Shopping</a></span> </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    let calculatedPrice = 0;
+    var calculatedTotal;
+    var beutel = "@beutel";
+    var onlyBeutel = "@onlyBeutel";
+    var total = "@(Model != null ? Model.TotalPrice : 0)";
+    var totalAmountAtFirst = @totalAmount;
+    var totalWeightAtFirst = @totalWeight;
+    let amountResponse =
+    {
+        "totalPrice": 0,
+        "amount": 0,
+        "totalWeight":0
+    };
+    $(document).ready(function () {
+        console.log(beutel);
+        console.log(onlyBeutel);
+        if (totalWeightAtFirst > 20 && onlyBeutel == "False" && beutel == "True" && totalAmountAtFirst > 1) {
+            changeValuesAccToWeight(totalWeightAtFirst)
+
+        }
+
+            });
+    function changeAmount(id) {
+
+        var amount = $("#" + id + "").val();
+        $.get("../Shopping/ChangeAmount/?id=" + id + "&amount=" + amount + "", function (gelenVeri) {
+            if (gelenVeri) {
+                console.log(gelenVeri);
+                var arr = gelenVeri.split("/");
+
+                amountResponse.totalPrice = arr[0];
+                amountResponse.amount = arr[1];
+                amountResponse.totalWeight = arr[2];
+                beutel = ""+arr[3]+"";
+                onlyBeutel = ""+arr[4]+"";
+                console.log(amountResponse);
+                total = amountResponse.totalPrice;
+
+                if (beutel == "False") {
+                    changeValidationLabel();
+                }
+
+                if (amountResponse.totalWeight >= 20) {
+                    changeValuesAccToWeight(amountResponse.totalWeight);
+                    changeSubtotal(amountResponse.totalWeight);
+                }
+                else {
+                    changeSubtotal();
+                }
+
+
+            }
+        });
+    }
+
+    function changeValuesAccToWeight(weightLast) {
+        $.get("../Shopping/CheckWeightPrice/?weight=" + weightLast + "", function (gelenVeri) {
+            if (gelenVeri) {
+
+                calculatedPrice = gelenVeri;
+                if (amountResponse.totalWeight == 0 || amountResponse.totalPrice == 0) {
+                    changeSubtotal(totalWeightAtFirst);
+                }
+                else {
+                    changeSubtotal(amountResponse.totalWeight);
+
+                }
+            }
+        });
+
+    }
+
+    function changeSubtotal(weight) {
+        console.log(weight);
+        var subTotalVal = document.getElementById('subtotal');
+        if (weight >= 20 && onlyBeutel == "False") {
+            calculatedTotal = Math.round(calculatedPrice * weight);
+            subTotalVal.innerHTML = "<b>Subtotal:" + calculatedTotal + "EUR    <sub><s>" + total + "</s></sub></b>";
+        }
+        else if (weight >= 20 && onlyBeutel == "False" && beutel == "True") {
+            calculatedTotal = Math.round(calculatedPrice * weight);
+            subTotalVal.innerHTML = "<b>Subtotal:" + calculatedTotal + "EUR    <sub><s>" + total + "</s></sub></b>";
+        }
+        else {
+            subTotalVal.innerHTML = "<b>Subtotal:" + total + "EUR </b>";
+        }
+
+    }
+
+    function changeValidationLabel() {
+        var validationLabel = document.getElementById('validationLabel');
+        var checkout = document.getElementById('checkOut');
+        var valdiv = document.getElementById('valDiv');
+        if (validationLabel != null && validationLabel != undefined) {
+            if (amountResponse.amount < 4) {
+                validationLabel.style.display = "block";
+                validationLabel.innerHTML = `Please add  ${4 - amountResponse.amount} more products for complete your order.`;
+                if (!checkout.classList.contains("disabled")) {
+                    checkout.classList.add("disabled");
+                }
+            }
+            else {
+                validationLabel.style.display = "none";
+                if (checkout.classList.contains("disabled")) {
+                    checkout.classList.remove("disabled");
+                }
+            }
+        }
+        else {
+            if (amountResponse.amount < 4)
+                valdiv.innerHTML = `<label id="validationLabel" style="color:red">Please add ${4 - amountResponse.amount} more products for complete your order.</label>`;
+        }
+
+    }
+
+
+
+    function deleteItem(id) {
+        $.get("../Shopping/DeleteCartItem/?id=" + id + "", function (gelenVeri) {
+            if (gelenVeri) {
+                total = gelenVeri;
+                changeSubtotal();
+                window.location.reload();
+            }
+        });
+    }
+</script>
+
+
+
+
+

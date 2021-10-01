@@ -1,0 +1,87 @@
+﻿
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/iconsmind.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/theme-charcoal.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700" rel="stylesheet">
+
+
+</head>
+<body data-smooth-scroll-offset="77">
+    <div class="nav-container"> </div>
+    <div class="main-container">
+        <section class="imagebg" data-overlay="4">
+            <div class="background-image-holder"> <img alt="background" src="~/img/UnsereProdukte.jpeg"> </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Informationen für <br> <b>Neukunden</b></h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="switchable switchable--switch">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-md-8 col-lg-7">
+                        <h2>Willkommen bei Greenstein</h2>
+                        <p class="lead"> Wir freuen uns Sie als Neukunde bei uns begrüßen zu dürfen. Wir stehen Ihnen nicht nur als zuverlässiger Großhändler für Medizinal-Cannabis zur Seite, sondern auch für Fragen rund um das Thema Cannabis. </p>
+                        <p class="lead"> Um Sie bei uns als Kunde aufzunehmen, bitten wir Sie Ihre Apothekenzulassung und Betäubungsmittelnummer per E-Mail, Fax oder postalisch zukommen zu lassen. Nach einer Bearbeitungszeit von maximal 24 Stunden können wir Ihre Bestellung unverzüglich fortsetzen. </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="text-block">
+                            <h5>Phone</h5>
+                            <p><a href="info@greenstein.eu">info@greenstein.eu</a><br>(30) 75945211</p>
+                        </div>
+                        <div class="text-block">
+                            <h5>Address</h5>
+                            <p> Greenstein Germany GmbH<br> Kastanienallee 22 <br> 14052 Berlin </p>
+                        </div>
+                        <div class="text-block">
+                            <h5>Opening Hours</h5>
+                            <p> Monday - Thursday: 9am - 5pm<br> Friday: 9am - 3pm<br> Saturday - Sunday: CLOSED </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="bg--secondary">
+                <div class="container">
+                    <div class="row justify-content-center no-gutters">
+                        <div class="col-md-10 col-lg-8">
+                            <div class="boxed boxed--border">
+                                <form class="text-left row mx-0" action="/Shopping/CheckOut" method="post">
+                                    <div class="col-md-6"> <span>Name Apotheke:</span> <input type="text" name="Name" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Name Inhaber:</span> <input type="text" name="Surname" class="validate-required"> </div>
+                                    <div class="col-md-12"> <span>Adresse + Hausnummer:</span> <input type="text" name="Company" class="validate-required"> </div>
+                                    <div class="col-md-12"> <span>PLZ + Ort:</span> <input type="text" name="Address" class="validate-required"></div>
+                                    <div class="col-md-6">  <span>BtM-Nr:</span> <input type="tel" name="PhoneNumber" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Email Address:</span> <input type="email" name="Mail" class="validate-required validate-email"> </div>
+
+
+                                    @*<div class="col-md-6"> <span>Postal Code:</span> <input type="text" name="name" class="validate-required"> </div>
+                                        <div class="col-md-6"> <span>City:</span> <input type="text" name="company" class="validate-required"> </div>*@
+                                    <p><input type="file" name="attachment" multiple="multiple"></p>
+                                    <p>VHV Reasürans A.Ş. tarafından 6698 Sayılı Kişisel Verilerin Korunması Kanunu’nun ilgili hükümlerine uygun olarak web-sitesinde yer alan Genel Aydınlatma Beyanı ve VHV Reasürans Kişisel Verilerin Korunması ve Gizlilik Politikası sınırları çerçevesinde, işe alım amacı ile paylaşmış olduğum kişisel verilerimin işlenmesini kabul ediyorum.</p>
+                                    <div class="col-md-3">
+                                        <div class="input-checkbox"> <input type="checkbox" name="design"> <label> <span> Ich verstehe </span> </label> </div>
+                                    </div>
+                                    <div class="col-md-6 boxed"> <button type="submit" class="btn btn--primary type--uppercase">Senden</button> </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</body>
+
+</html>
+

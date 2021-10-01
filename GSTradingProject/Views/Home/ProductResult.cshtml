@@ -1,0 +1,24 @@
+﻿@model ErpProductDTO
+@{
+    ViewBag.Title = "ProductResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var variants = ViewBag.variants as List<ItemVariant>;
+    var imageLink = ViewBag.imageLink as string;
+}
+
+<div style="margin-top:200px">
+
+    <label>@Model.displayName</label>
+    <br />
+    <label>IMAGE</label>
+    <br />
+    <img src="@imageLink" style="max-width:300px;max-height:600px">
+    <b>Properties</b>
+
+    @foreach (var item in variants)
+    {
+        <div class="row">
+            <label>@item.code</label>:  <label>@item.description</label>
+        </div>
+    }
+</div>

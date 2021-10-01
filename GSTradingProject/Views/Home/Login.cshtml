@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "APOCAN | Login";
+    var a = Session["logged"];
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/theme-charcoal.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700" rel="stylesheet">
+
+</head>
+<body data-smooth-scroll-offset="77">
+    <div class="nav-container"> </div>
+    <div class="main-container">
+        <section class="text-center imagebg section--ken-burns space--md" data-overlay="4">
+            <div class="background-image-holder"> <img alt="background" src="~/img/Hero_unternehmen.jpeg"> </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-11">
+                        <h1>Login zu unserem<b> Fachbereich</b></h1>
+                        <p class="lead"> Wir bieten Ihnen Zugang zu unserem Fachbereich über Ihren DocCheck Account. Sollten Sie noch keine Zugangsdaten für DocCheck besitzen, so können Sie sich jederzeit unter <b>www.doccheck.de</b> registrieren. <br><br>Informationen zur Datenerfassung finden Sie in unserem <span><a href="@Url.RouteUrl("Datenschutz")">Datenschutz</a></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            @if (Session["logged"] == null)
+            {
+                <div class="row" style="justify-content:center">
+                    <div>
+                        <iframe style="display:block;min-width:467px" align="middle" frameborder="0" scrolling="no" width="467" height="231" name="dc_login_iframe" id="dc_login_iframe" src="https://login.doccheck.com/code/de/2000000017561/login_xl/"><a href="https://login.doccheck.com/code/de/2000000017561/login_xl/" target="_blank">LOGIN</a></iframe>
+
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div>
+                    <p>You are already logged.</p>
+                    @Html.ActionLink("LogOut", "LogOut", "Home");
+                </div>
+            }
+
+
+        </section>
+    </div>
+</body>
+
+</html>
